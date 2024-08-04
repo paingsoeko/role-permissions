@@ -1,0 +1,23 @@
+{
+    "name": "kopaing/roles-permissions",
+    "description": "A roles and permissions package for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Paing Soe Ko",
+            "email": "social.kopaing@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Kopaing\\RolesPermissions\\": "src/"
+        },
+        "files": [
+            "src/Helpers/PermissionHelper.php"
+        ]
+    }
+}
