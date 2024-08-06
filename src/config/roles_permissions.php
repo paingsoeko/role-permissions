@@ -7,6 +7,7 @@ return [
         'role' => Kopaing\RolesPermissions\Models\Role::class,
         'permission' => Kopaing\RolesPermissions\Models\Permission::class,
         'role_permission' => Kopaing\RolesPermissions\Models\RolePermission::class,
+        'context' => Kopaing\RolesPermissions\Models\Context::class,
     ],
 
 
@@ -15,19 +16,20 @@ return [
     //Declare Feature and Permissions
     'features' => [
         'User' => [
-            'default' => ['view-any', 'view', 'create', 'update', 'delete'],
-            'custom' => ['import'],
+            'default-permissions' => ['view-any', 'view', 'create', 'update', 'delete'],
+            'custom-permissions' => ['import'],
         ],
 
         'Role' => [
-            'default' => ['view-any', 'view', 'create', 'update', 'delete'],
-            'custom' => [],
+            'default-permissions' => ['view-any', 'view', 'create', 'update', 'delete'],
         ],
 
+
 ////        Add new feature and permissions
+////        for custom permission 'custom' => []
+////        Dynamic Permissions based on context, use  'context' => []
 //        '' => [
 //            'default' => ['view-any', 'view', 'create', 'update', 'delete'],
-//            'custom' => [],
 //        ],
 
     ],

@@ -56,6 +56,28 @@ class RolesPermissionsServiceProvider extends ServiceProvider
             return "<?php endif; ?>";
         });
 
+        Blade::directive('checkContextual', function ($expression) {
+            list($permissionName, $featureName, $contextName) = explode(', ', $expression);
+
+            $permissionName = trim($permissionName, "'\"");
+            $featureName = trim($featureName, "'\"");
+            $contextName = trim($contextName, "'\"");
+
+            return "<?php if (\\Kopaing\\RolesPermissions\\Helpers\\PermissionHelper::hasContextualPermission(auth()->user()->role_id, '$featureName', '$permissionName', '$contextName')): ?>";
+        });
+
+        Blade::directive('endcheckContextual', function () {
+            return "<?php endif; ?>";
+        });
+
+        Blade::directive('roleId', function () {
+            return "<?php echo \Kopaing\RolesPermissions\Helpers\Role::id(); ?>";
+        });
+
+        Blade::directive('roleName', function () {
+            return "<?php echo \Kopaing\RolesPermissions\Helpers\Role::name(); ?>";
+        });
+
         // Register the console command
         if ($this->app->runningInConsole()) {
             $this->commands([

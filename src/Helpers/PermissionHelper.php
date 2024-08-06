@@ -3,6 +3,7 @@
 namespace Kopaing\RolesPermissions\Helpers;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
+use Kopaing\RolesPermissions\Models\Context;
 use Kopaing\RolesPermissions\Models\Feature;
 use Kopaing\RolesPermissions\Models\Permission;
 use Kopaing\RolesPermissions\Models\Role;
@@ -81,5 +82,36 @@ class PermissionHelper
     public static function canDelete($roleId, $featureName)
     {
         return self::hasPermission($roleId, $featureName, 'delete');
+    }
+
+    public static function hasContextualPermission($roleId, $featureName, $permissionName, $contextName)
+    {
+
+        $feature = Feature::where('name', $featureName)->first();
+        if (!$feature) {
+            return false;
+        }
+
+        $permission = $feature->permissions()->where('name', $permissionName)->first();
+        if (!$permission) {
+            return false;
+        }
+
+        $context = Context::where('name', $contextName)->first();
+        if (!$context) {
+            return false;
+        }
+
+        $cacheKey = auth()->id() . '_role_permissions_' . $roleId . '_' . $context->id;
+        $permissions = Cache::remember($cacheKey, 60, function () use ($roleId, $context) {
+            return $context->permissions()
+                ->whereHas('roles', function ($query) use ($roleId) {
+                    $query->where('role_id', $roleId);
+                })
+                ->pluck('permissions.id')
+                ->toArray();
+        });
+
+        return in_array($permission->id, $permissions);
     }
 }

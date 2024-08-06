@@ -43,4 +43,9 @@ class Permission extends Model
     {
         return $this->belongsToMany(Role::class, 'role_permissions');
     }
+
+    public function contexts()
+    {
+        return $this->belongsToMany(Context::class, 'context_permissions');
+    }
 }
