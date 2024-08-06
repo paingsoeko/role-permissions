@@ -87,13 +87,13 @@ class RolesPermissionsServiceProvider extends ServiceProvider
 
         // Publish config
         $this->publishes([
-            __DIR__ . '/config/roles_permissions.php' => config_path('roles_permissions.php'),
+            __DIR__ . '/../config/roles_permissions.php' => config_path('roles_permissions.php'),
         ], 'config');
 
 
         // Publish migrations
         $this->publishes([
-            __DIR__ . '/database/migrations/' => database_path('migrations'),
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
         ], 'migrations');
 
         // Load package migrations
@@ -101,7 +101,7 @@ class RolesPermissionsServiceProvider extends ServiceProvider
 
         // Publish models
         $this->publishes([
-            __DIR__ . '/Models/' => base_path('/app/Models/'),
+            __DIR__ . '/../src/Models' => base_path('/app/Models/'),
         ], 'models');
 
     }
@@ -110,7 +110,7 @@ class RolesPermissionsServiceProvider extends ServiceProvider
     {
         // Merge config
         $this->mergeConfigFrom(
-            __DIR__.'/config/roles_permissions.php', 'roles_permissions'
+            __DIR__ . '/../config/roles_permissions.php', 'roles_permissions'
         );
     }
 }
