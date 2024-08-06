@@ -3,7 +3,7 @@
     "description": "A roles and permissions package for Laravel",
     "type": "library",
     "license": "MIT",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "authors": [
         {
             "name": "Paing Soe Ko",
